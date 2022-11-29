@@ -1,5 +1,4 @@
-#!/usr/bin/env python3
-uppercase = __import__('8-uppercase').uppercase
-
-uppercase("best")
-uppercase("Best School 98 Battery street")
+#!/usr/bin/python3
+def print_last_digit(number):
+    print(abs(number) % 10, end="")
+    return (abs(number) % 10)
