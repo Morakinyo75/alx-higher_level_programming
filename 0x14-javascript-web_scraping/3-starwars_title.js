@@ -1,16 +1,14 @@
 #!/usr/bin/node
+// Star Wars
 
 const request = require('request');
-const episodeNum = process.argv[2];
-const API_URL = 'https://swapi-api.hbtn.io/api/films/';
+const url = 'https://swapi-api.alx-tools.com/api/films/' + process.argv[2];
 
-request(API_URL + episodeNum, function (err, response, body) {
-  if (err) {
-    console.log(err);
-  } else if (response.statusCode === 200) {
-    const responseJSON = JSON.parse(body);
-    console.log(responseJSON.title);
+request.get(url, (error, response, body) => {
+  if (error) {
+    console.log(error);
   } else {
-    console.log('Error code: ' + response.statusCode);
+    const content = JSON.parse(body);
+    console.log(content.title);
   }
 });

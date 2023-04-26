@@ -1,24 +1,20 @@
 #!/usr/bin/node
-
+// Number of films with the given character ID
 const request = require('request');
-const url = process.argv[2];
+let num = 0;
 
-request(url, function (err, response, body) {
-  if (err) {
-    console.log(err);
-  } else if (response.statusCode === 200) {
-    const films = JSON.parse(body).results;
-    let count = 0;
-    for (const filmIndex in films) {
-      const filmChars = films[filmIndex].characters;
-      for (const charIndex in filmChars) {
-        if (filmChars[charIndex].includes('18')) {
-          count++;
-        }
-      }
-    }
-    console.log(count);
+request.get(process.argv[2], (error, response, body) => {
+  if (error) {
+    console.log(error);
   } else {
-    console.log('An error occured. Status code: ' + response.statusCode);
+    const content = JSON.parse(body);
+    content.results.forEach((film) => {
+      film.characters.forEach((character) => {
+        if (character.includes(18)) {
+          num += 1;
+        }
+      });
+    });
+    console.log(num);
   }
 });
